@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCash Receipt Verification System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .results-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: #007bff;
+        }
+        
+        .file-upload.active {
+            border-color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        
+        .status-verified {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .status-not-found {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .status-mismatch {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .status-duplicate {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+        
+        .status-duplicate-mismatch {
+            color: #17a2b8;
+            font-weight: bold;
+            text-decoration: underline wavy #ffc107;
+        }
+        
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .password-container {
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div class="spinner-container">
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h5 id="loadingMessage">Processing files...</h5>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="container text-center">
+            <h1>GCash Receipt Verification System</h1>
+            <p class="lead">Upload your files to verify GCash receipts</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="upload-container">
+            <h2 class="mb-4">Upload Files</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Spreadsheet</h4>
+                            <p>Upload the spreadsheet containing receipt submissions</p>
+                            <div class="file-upload" id="spreadsheetUpload">
+                                <i class="bi bi-file-earmark-spreadsheet fs-1 mb-3"></i>
+                                <h5>Drop Excel/CSV file here</h5>
+                                <p>or</p>
+                                <input type="file" id="spreadsheetFile" class="form-control" accept=".xlsx,.xls,.csv">
+                                <div id="spreadsheetInfo" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Upload GCash PDF</h4>
+                            <p>Upload your GCash PDF statement</p>
+                            <div class="file-upload" id="pdfUpload">
+                                <i class="bi bi-file-earmark-pdf fs-1 mb-3"></i>
+                                <h5>Drop PDF file here</h5>
+                                <p>or</p>
+                                <input type="file" id="pdfFile" class="form-control" accept=".pdf">
+                                <div class="password-container" id="pdfPasswordContainer">
+                                    <div class="input-group mt-3">
+                                        <span class="input-group-text">PDF Password</span>
+                                        <input type="password" id="pdfPassword" class="form-control" placeholder="Enter PDF password">
+                                        <button class="btn btn-outline-secondary" type="button" id="submitPdfPassword">Submit</button>
+                                    </div>
+                                </div>
+                                <div id="pdfInfo" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button id="verifyBtn" class="btn btn-primary btn-lg" disabled>Verify Receipts</button>
+            </div>
+        </div>
+        
+        <div class="results-container" id="resultsContainer" style="display: none;">
+            <h2 class="mb-4">Verification Results</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Reference Number</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTable">
+                        <!-- Results will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-3">
+                <button id="downloadBtn" class="btn btn-success">Download Results</button>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3>How It Works</h3>
+                <p>This system verifies GCash receipts by comparing them against your actual GCash transaction history:</p>
+                <ol>
+                    <li>Upload your spreadsheet containing receipt submissions (must include Reference Number, Amount, and Date columns)</li>
+                    <li>Upload your GCash PDF statement (enter password if protected)</li>
+                    <li>Click "Verify Receipts" to compare the data</li>
+                    <li>View and download the verification results</li>
+                </ol>
+                <div class="alert alert-info">
+                    <strong>Privacy Note:</strong> All processing happens in your browser. Your files are not uploaded to any server.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>GCash Receipt Verification System &copy; 2023</p>
+            <p class="text-muted">This system is for verification purposes only and is not affiliated with GCash or Globe Fintech Innovations, Inc.</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="verification.js"></script>
+</body>
+</html> 
