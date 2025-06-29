@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCash Receipt Verification System - User Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .step-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .image-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 15px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .link-box {
+            background-color: #e9f7fe;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .link-box a {
+            word-break: break-all;
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: #6c757d;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container text-center">
+            <h1>GCash Receipt Verification System</h1>
+            <p class="lead">Simple Visual Guide</p>
+        </div>
+    </div>
+    
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="step-container">
+                    <h2 class="mb-4">How It Works - Quick Overview</h2>
+                    
+                    <div class="row text-center mb-4">
+                        <div class="col-md-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Step 1</h5>
+                                    <p class="card-text">People submit GCash receipts via Google Form</p>
+                                    <div class="image-container">
+                                        <img src="images/google-form-icon.png" alt="Google Form Icon" class="img-fluid" style="max-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Step 2</h5>
+                                    <p class="card-text">Responses collect in Google Spreadsheet</p>
+                                    <div class="image-container">
+                                        <img src="images/google-sheets-icon.png" alt="Google Sheets Icon" class="img-fluid" style="max-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Step 3</h5>
+                                    <p class="card-text">Download spreadsheet & GCash PDF</p>
+                                    <div class="image-container">
+                                        <img src="images/download-icon.png" alt="Download Icon" class="img-fluid" style="max-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Step 4</h5>
+                                    <p class="card-text">Verify receipts with our tool</p>
+                                    <div class="image-container">
+                                        <img src="images/verification-icon.png" alt="Verification Icon" class="img-fluid" style="max-height: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>Important Links:</strong> Bookmark these links for easy access!
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="link-box">
+                                <strong>1. Google Form:</strong><br>
+                                <a href="https://forms.gle/mT4FbMRL5zqPNVpe8" target="_blank">https://forms.gle/mT4FbMRL5zqPNVpe8</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="link-box">
+                                <strong>2. Google Spreadsheet:</strong><br>
+                                <a href="https://docs.google.com/spreadsheets/d/1FYmI_jBn5OptIvPG57dFRycYBlQAVpT4U_rAXz4LZCg" target="_blank">https://docs.google.com/spreadsheets/d/1FYmI_jBn5OptIvPG57dFRycYBlQAVpT4U_rAXz4LZCg</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="link-box">
+                                <strong>3. Google Drive Folder:</strong><br>
+                                <a href="https://drive.google.com/drive/folders/1CYi-qHgiLLqA76X2o_wHspszf4N-MuRC" target="_blank">https://drive.google.com/drive/folders/1CYi-qHgiLLqA76X2o_wHspszf4N-MuRC</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="link-box">
+                                <strong>4. GCash Receipt Verifier:</strong><br>
+                                <a href="https://g-cash-receipt-verifier.vercel.app/" target="_blank">https://g-cash-receipt-verifier.vercel.app/</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <h2 class="mb-4">Detailed Guide</h2>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Google Form for Submissions</h3>
+                            <p>People use this form to submit their GCash receipt details:</p>
+                            
+                            <div class="image-container">
+                                <img src="images/google-form-example.png" alt="Google Form Example" class="img-fluid">
+                            </div>
+                            
+                            <div class="alert alert-success">
+                                <span class="alert-icon">💡</span>
+                                <strong>Tip:</strong> Share the form link with people who need to submit GCash receipts to you.
+                            </div>
+                            
+                            <a href="https://forms.gle/mT4FbMRL5zqPNVpe8" target="_blank" class="btn btn-primary">Open Google Form</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Google Spreadsheet Collects Responses</h3>
+                            <p>When someone submits the form, their information automatically appears in this spreadsheet:</p>
+                            
+                            <div class="image-container">
+                                <img src="images/spreadsheet-example.png" alt="Google Spreadsheet Example" class="img-fluid">
+                            </div>
+                            
+                            <div class="alert alert-success">
+                                <span class="alert-icon">💡</span>
+                                <strong>Tip:</strong> You don't need to do anything - responses appear automatically!
+                            </div>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/1FYmI_jBn5OptIvPG57dFRycYBlQAVpT4U_rAXz4LZCg" target="_blank" class="btn btn-primary">Open Spreadsheet</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Download Files for Verification</h3>
+                            <p>When you're ready to verify receipts:</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card mb-3">
+                                        <div class="card-header bg-primary text-white">
+                                            Download Spreadsheet
+                                        </div>
+                                        <div class="card-body">
+                                            <ol>
+                                                <li>Open the spreadsheet</li>
+                                                <li>Click File → Download</li>
+                                                <li>Choose Excel (.xlsx) or CSV</li>
+                                            </ol>
+                                            <div class="image-container">
+                                                <img src="images/download-spreadsheet.png" alt="Download Spreadsheet" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card mb-3">
+                                        <div class="card-header bg-primary text-white">
+                                            Get GCash PDF Statement
+                                        </div>
+                                        <div class="card-body">
+                                            <ol>
+                                                <li>Open GCash app</li>
+                                                <li>Go to Profile → My Transactions</li>
+                                                <li>Generate Statement</li>
+                                                <li>Download the PDF</li>
+                                            </ol>
+                                            <div class="image-container">
+                                                <img src="images/gcash-statement.png" alt="GCash Statement" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-success">
+                                <span class="alert-icon">💡</span>
+                                <strong>Tip:</strong> Save both files somewhere easy to find on your computer.
+                            </div>
+                            
+                            <a href="https://drive.google.com/drive/folders/1CYi-qHgiLLqA76X2o_wHspszf4N-MuRC" target="_blank" class="btn btn-primary">Open Drive Folder</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Verify Receipts with the Tool</h3>
+                            <p>Use our verification tool to check if the receipts are valid:</p>
+                            
+                            <div class="image-container">
+                                <img src="images/verification-tool.png" alt="Verification Tool" class="img-fluid">
+                            </div>
+                            
+                            <ol class="mt-3">
+                                <li>Go to the verification website</li>
+                                <li>Upload your spreadsheet</li>
+                                <li>Upload your GCash PDF</li>
+                                <li>Click "Verify Receipts"</li>
+                                <li>View and download results</li>
+                            </ol>
+                            
+                            <div class="alert alert-info mt-3">
+                                <h5>What the Results Mean:</h5>
+                                <ul class="mb-0">
+                                    <li><span class="text-success fw-bold">Verified</span> - Receipt matches a real transaction ✓</li>
+                                    <li><span class="text-danger fw-bold">Not Found</span> - No matching transaction found ✗</li>
+                                    <li><span class="text-warning fw-bold">Amount Mismatch</span> - Reference number matches but amount is different ⚠️</li>
+                                    <li><span class="text-info fw-bold">Duplicate</span> - Same receipt submitted multiple times ℹ️</li>
+                                </ul>
+                            </div>
+                            
+                            <a href="https://g-cash-receipt-verifier.vercel.app/" target="_blank" class="btn btn-primary mt-3">Open Verification Tool</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-container">
+                    <h2 class="mb-4">Privacy & Security</h2>
+                    <div class="alert alert-warning">
+                        <p class="mb-0"><strong>Important:</strong> All verification happens in your browser. Your files are not uploaded to any server. Your GCash data remains private and secure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>GCash Receipt Verification System Guide &copy; 2023</p>
+            <p class="text-muted">This system is for verification purposes only and is not affiliated with GCash or Globe Fintech Innovations, Inc.</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
